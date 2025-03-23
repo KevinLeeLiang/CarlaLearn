@@ -41,6 +41,7 @@ def main():
         # camera relative position relative to the ego vehicle
         camera_transform = carla.Transform(carla.Location(x=1.5, z=2.4))
         camera = world.spawn_actor(camera_bp, camera_transform, attach_to=ego_vehicle)
+        camera.listen(lambda image: image.save_to_disk(os.path.join('images/%06d.png' % image.frame)))
         sensor_list.append(camera)
 
         # add a lidar to the ego vehicle
